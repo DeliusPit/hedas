@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/wpcodevo/golang-hedas/initializers"
-	"github.com/wpcodevo/golang-hedas/models"
-	"github.com/wpcodevo/golang-hedas/utils"
+	"github.com/DeliusPit/golang-hedas/initializers"
+	"github.com/DeliusPit/golang-hedas/models"
+	"github.com/DeliusPit/golang-hedas/utils"
 	"gorm.io/gorm"
 )
 

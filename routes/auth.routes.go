@@ -2,8 +2,8 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/DeliusPit/golang-gorm-postgres/controllers"
-	"github.com/DeliusPit/golang-gorm-postgres/middleware"
+	"github.com/DeliusPit/golang-hedas/controllers"
+	"github.com/DeliusPit/golang-hedas/middleware"
 )
 
 type AuthRouteController struct {

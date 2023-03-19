@@ -19,8 +19,11 @@ var (
 	UserController      controllers.UserController
 	UserRouteController routes.UserRouteController
 
-	PostController      controllers.PostController
-	PostRouteController routes.PostRouteController
+	BucketController      controllers.BucketController
+	BucketRouteController routes.BucketRouteController
+
+	FileController      controllers.FileController
+	FileRouteController routes.FileRouteController
 )
 
 func init() {
@@ -37,8 +40,11 @@ func init() {
 	UserController = controllers.NewUserController(initializers.DB)
 	UserRouteController = routes.NewRouteUserController(UserController)
 
-	PostController = controllers.NewPostController(initializers.DB)
-	PostRouteController = routes.NewRoutePostController(PostController)
+	BucketController = controllers.NewBucketController(initializers.DB)
+	BucketRouteController = routes.NewRouteBucketController(BucketController)
+
+	FileController = controllers.NewFileController(initializers.DB)
+	FileRouteController = routes.NewRouteFileController(FileController)
 
 	server = gin.Default()
 }
@@ -64,6 +70,7 @@ func main() {
 
 	AuthRouteController.AuthRoute(router)
 	UserRouteController.UserRoute(router)
-	PostRouteController.PostRoute(router)
+	BucketRouteController.BucketRoute(router)
+	FileRouteController.FileRoute(router)	
 	log.Fatal(server.Run(":" + config.ServerPort))
 }

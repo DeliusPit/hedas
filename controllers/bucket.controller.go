@@ -53,7 +53,7 @@ func (pc *BucketController) CreateBucket(ctx *gin.Context) {
 }
 
 func (pc *BucketController) UpdateBucket(ctx *gin.Context) {
-	postId := ctx.Param("postId")
+	bucketId := ctx.Param("bucketId")
 	currentUser := ctx.MustGet("currentUser").(models.User)
 
 	var payload *models.UpdateBucket
@@ -62,7 +62,7 @@ func (pc *BucketController) UpdateBucket(ctx *gin.Context) {
 		return
 	}
 	var updatedBucket models.Bucket
-	result := pc.DB.First(&updatedBucket, "id = ?", postId)
+	result := pc.DB.First(&updatedBucket, "id = ?", bucketId)
 	if result.Error != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{"status": "fail", "message": "No post with that title exists"})
 		return
@@ -84,12 +84,12 @@ func (pc *BucketController) UpdateBucket(ctx *gin.Context) {
 }
 
 func (pc *BucketController) FindBucketById(ctx *gin.Context) {
-	postId := ctx.Param("postId")
+	bucketId := ctx.Param("bucketId")
 
 	var post models.Bucket
-	result := pc.DB.First(&post, "id = ?", postId)
+	result := pc.DB.First(&post, "id = ?", bucketId)
 	if result.Error != nil {
-		ctx.JSON(http.StatusNotFound, gin.H{"status": "fail", "message": "No post with that title exists"})
+		ctx.JSON(http.StatusNotFound, gin.H{"status": "fail", "message": "No bucket with that ID exists"})
 		return
 	}
 
@@ -115,9 +115,9 @@ func (pc *BucketController) FindBuckets(ctx *gin.Context) {
 }
 
 func (pc *BucketController) DeleteBucket(ctx *gin.Context) {
-	postId := ctx.Param("postId")
+	bucketId := ctx.Param("bucketId")
 
-	result := pc.DB.Delete(&models.Bucket{}, "id = ?", postId)
+	result := pc.DB.Delete(&models.Bucket{}, "id = ?", bucketId)
 
 	if result.Error != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{"status": "fail", "message": "No post with that title exists"})

@@ -51,7 +51,7 @@ func (pc *FileController) CreateFile(ctx *gin.Context) {
 }
 
 func (pc *FileController) UpdateFile(ctx *gin.Context) {
-	postId := ctx.Param("postId")
+	fileId := ctx.Param("fileId")
 	currentUser := ctx.MustGet("currentUser").(models.User)
 
 	var payload *models.UpdateFile
@@ -60,7 +60,7 @@ func (pc *FileController) UpdateFile(ctx *gin.Context) {
 		return
 	}
 	var updatedFile models.File
-	result := pc.DB.First(&updatedFile, "id = ?", postId)
+	result := pc.DB.First(&updatedFile, "id = ?", fileId)
 	if result.Error != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{"status": "fail", "message": "No post with that title exists"})
 		return
@@ -80,10 +80,10 @@ func (pc *FileController) UpdateFile(ctx *gin.Context) {
 }
 
 func (pc *FileController) FindFileById(ctx *gin.Context) {
-	postId := ctx.Param("postId")
+	fileId := ctx.Param("fileId")
 
 	var post models.File
-	result := pc.DB.First(&post, "id = ?", postId)
+	result := pc.DB.First(&post, "id = ?", fileId)
 	if result.Error != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{"status": "fail", "message": "No post with that title exists"})
 		return
@@ -111,9 +111,9 @@ func (pc *FileController) FindFiles(ctx *gin.Context) {
 }
 
 func (pc *FileController) DeleteFile(ctx *gin.Context) {
-	postId := ctx.Param("postId")
+	fileId := ctx.Param("fileId")
 
-	result := pc.DB.Delete(&models.File{}, "id = ?", postId)
+	result := pc.DB.Delete(&models.File{}, "id = ?", fileId)
 
 	if result.Error != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{"status": "fail", "message": "No post with that title exists"})

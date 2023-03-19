@@ -1,4 +1,4 @@
-# Build Golang RESTful API with Gorm, Gin and Postgres
+# Hedas - Headless Document Archiving System
 
 ## 1. What is HEDAS?
 

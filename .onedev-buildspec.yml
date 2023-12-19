@@ -1,0 +1,40 @@
+version: 25
+jobs:
+- name: push to Github
+  steps:
+  - !PushRepository
+    name: push-github
+    remoteUrl: https://github.com/DeliusPit/hedas
+    passwordSecret: access-token
+    force: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger {}
+  - !TagCreateTrigger {}
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 3600
+- name: pull from Githhub
+  steps:
+  - !PullRepository
+    name: pull-github
+    remoteUrl: https://github.com/DeliusPit/hedas
+    syncToChildProject: false
+    passwordSecret: access-token
+    refs: refs/heads/* refs/tags/*
+    withLfs: false
+    force: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 3600
+- name: timer
+  triggers:
+  - !ScheduleTrigger
+    cronExpression: 0 0 0 * * ?
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 3600
